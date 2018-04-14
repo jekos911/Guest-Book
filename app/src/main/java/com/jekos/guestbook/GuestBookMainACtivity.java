@@ -39,7 +39,7 @@ public class GuestBookMainACtivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        dbHelper.insertRow(firstName.getText().toString(),lastName.getText().toString());
-        notesAdapter.updateUI(dbHelper.getNotesList());
+        Note note = dbHelper.insertRow(firstName.getText().toString(),lastName.getText().toString());
+        notesAdapter.addNote(note);
     }
 }

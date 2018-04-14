@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.jekos.guestbook.R;
 import com.jekos.guestbook.models.Note;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -16,9 +17,9 @@ import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NoteVH> {
 
-    private List<Note> notes;
+    private LinkedList<Note> notes;
 
-    public NotesAdapter(List<Note> notes) {
+    public NotesAdapter(LinkedList<Note> notes) {
         this.notes = notes;
     }
 
@@ -41,8 +42,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NoteVH> {
         return vh;
     }
 
-    public void updateUI(List<Note> note) {
-        notes = note;
+    public void addNote(Note note) {
+        notes.add(0,note);
         notifyDataSetChanged();
     }
 }

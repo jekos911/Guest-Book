@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.jekos.guestbook.models.Note;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ import java.util.List;
 public class DBHelper extends SQLiteOpenHelper {
 
 
-    private SQLiteDatabase dbase;
+    private static SQLiteDatabase dbase;
 
     public static final int DB_VERSION = 1;
     public static final String DB_NAME = "GuestBook";
@@ -31,7 +32,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public DBHelper(Context context) {
         super(context,DB_NAME,null,DB_VERSION);
-        dbase = this.getWritableDatabase();
+        if (dbase == null)
+            dbase = this.getWritableDatabase();
     }
 
     @Override
@@ -45,15 +47,16 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertRow(String firstName, String secondName) {
+    public Note insertRow(String firstName, String secondName) {
         ContentValues values = new ContentValues();
         values.put(SQL_COLUMN_NAME_FIRSTNAME,firstName);
         values.put(SQL_COLUMN_NAME_SECONDNAME,secondName);
-        return dbase.insert(SQL_TABLE_NAME,null,values);
+        Note note = new Note((int)dbase.insert(SQL_TABLE_NAME,null,values),firstName,secondName);
+        return note;
     }
 
-    public List<Note> getNotesList() {
-        List<Note> list = new ArrayList<>();
+    public LinkedList<Note> getNotesList() {
+        LinkedList<Note> list = new LinkedList<>();
         String[] columns = {SQL_COLUMN_ID, SQL_COLUMN_NAME_FIRSTNAME, SQL_COLUMN_NAME_SECONDNAME};
         String sortOrder = SQL_COLUMN_ID + " DESC";
         Cursor c = dbase.query(SQL_TABLE_NAME,columns,null,null,null,null,sortOrder);
