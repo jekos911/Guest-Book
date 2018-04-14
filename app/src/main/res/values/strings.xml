@@ -3,4 +3,5 @@
     <string name="first_name"> Введите своё имя </string>
     <string name="last_name">Введите свою фамилию</string>
     <string name="button_add">Добавить запись</string>
+    <string name="notif_button">Заполните все поля</string>
 </resources>
