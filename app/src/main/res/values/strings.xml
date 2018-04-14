@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Guest Book</string>
+    <string name="first_name"> Введите своё имя </string>
+    <string name="last_name">Введите свою фамилию</string>
+    <string name="button_add">Добавить запись</string>
 </resources>
